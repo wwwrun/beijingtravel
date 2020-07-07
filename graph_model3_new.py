@@ -37,7 +37,7 @@ class GraphForEntityV0_4_9():
         """
         每个实体的所有类别
         """
-        f = open(r".\model3_file\get_key_class_all.json", "r", encoding="utf-8")  # 每个实体根据xlore给出的标签
+        f = open(r".\model3_file\get_key_class_all_new.json", "r", encoding="utf-8")  # 每个实体根据xlore给出的标签
         file = f.read()
         self.all_entity_type = json.loads(file)
         f.close()
@@ -719,7 +719,7 @@ class GraphForEntityV0_4_9():
         self.computeTypeNodeScore()  # 初始化类型节点score
         self.addEdgeBetweenT_T(nodeList)  # 加入类型-类型边
         print('边加入完毕，开始迭代....')
-        max_iter = 2  # 最大迭代次数
+        max_iter = 3  # 最大迭代次数
 
         aveModifyVal = []  # 记录每个节点修改值的平均值
 
@@ -848,6 +848,8 @@ if __name__ == '__main__':
         #entity_type_list=g1.entity_type_list
         entity_type_list=g1.get_type_list_order()
         print('domain、range及文档图处理完毕..................')
+        with open(r'./relation_domain-range.json','w+',encoding='utf-8')as f:
+            json.dump(seed_DR_dict,f,ensure_ascii=False)
         # with open('./entity_type_list_new.json', 'w+', encoding='utf-8')as f:
         #     json.dump(entity_type_list, f, ensure_ascii=False)
         # 获取生成的三元组
@@ -900,6 +902,6 @@ if __name__ == '__main__':
         triple_dict[name]=tri_score_order
         print('one document finish,三元组%d个'% len(g1.triple_list))
     print('All 文档处理完毕')
-    with open('./model3_result_yiheyuan迭代2_0707.json','w+',encoding='utf-8')as f:
+    with open('./model3_result_yiheyuan迭代3_0707-1.json','w+',encoding='utf-8')as f:
        json.dump(triple_dict,f,ensure_ascii=False)
 
